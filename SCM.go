@@ -547,6 +547,29 @@ func (t *POC) updateCargoStatus(stub shim.ChaincodeStubInterface, args []string)
 		return nil, nil
 
 }
+
+func (t *POC) addition(stub shim.ChaincodeStubInterface, args []int) ([]byte, error) {
+	if len(args) != 2 {
+		return nil, errors.New("Incorrect number of arguments. Expecting 2.")
+	}
+	number1 := args[0]
+	number2 := args[1]
+	
+	val:=number1+number2;
+	if val != nil {
+				return nil, val 
+			}
+			if  val == nil {
+				return nil, errors.New("Couldnt perform addition")
+			}
+	return nil,nil;
+
+}
+
+
+
+
+
 // Invoke invokes the chaincode
 func (t *POC) Invoke(stub shim.ChaincodeStubInterface, function string, args []string) ([]byte, error) {
 
@@ -559,7 +582,12 @@ func (t *POC) Invoke(stub shim.ChaincodeStubInterface, function string, args []s
 	} else if function == "exportHaulage" { 
 		t := POC{}
 		return t.exportHaulage(stub, args)
-	} else if function == "updateCargoStatus" { 
+	} 
+	else if function == "addition" { 
+		t := POC{}
+		return t.addition(stub, args)
+	}
+	else if function == "updateCargoStatus" { 
 		t := POC{}
 		return t.updateCargoStatus(stub, args)
 	}
